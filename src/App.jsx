@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       select: '',
       films: [],
+      resultMovies: [],
       people: []
     }
   }
@@ -18,7 +19,9 @@ class App extends Component {
       .then(response => {
         this.setState({films: response.data.results})
         let resultFilms = this.state.films.map(film=>{return film.title});
+        this.setState({resultMovies: resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e))});
         console.log(resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e)));
+        console.log(this.state.resultMovies);
       })
       .catch(function (error){
         console.log(error);
@@ -37,6 +40,11 @@ class App extends Component {
           <option value="people">People</option>
           <option value="films">Films</option>
         </select>
+
+        {this.state.resultMovies.map(resultMovie=>{
+          return <p>{resultMovie}</p>
+        })}
+
       </div>
     );
   }
