@@ -9,7 +9,6 @@ class App extends Component {
     this.state = {
       select: '',
       films: [],
-      resultMovies: [],
       people: []
     }
   }
@@ -17,11 +16,10 @@ class App extends Component {
   renderData(e) {
     axios.get(`https://swapi.co/api/films/`)
       .then(response => {
-        this.setState({films: response.data.results})
-        let resultFilms = this.state.films.map(film=>{return film.title});
-        this.setState({resultMovies: resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e))});
+        let responseFilms = response.data.results;
+        let resultFilms = responseFilms.map(film=>{return film.title});
+        this.setState({films: resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e))});
         console.log(resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e)));
-        console.log(this.state.resultMovies);
       })
       .catch(function (error){
         console.log(error);
@@ -41,8 +39,8 @@ class App extends Component {
           <option value="films">Films</option>
         </select>
 
-        {this.state.resultMovies.map(resultMovie=>{
-          return <p>{resultMovie}</p>
+        {this.state.films.map(film=>{
+          return <p key={film}>{film}</p>
         })}
 
       </div>
