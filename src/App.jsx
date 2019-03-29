@@ -9,11 +9,12 @@ class App extends Component {
     this.state = {
       select: '',
       films: [],
-      people: []
+      people: [],
+      personFilm: []
     }
   }
 
-  renderData(e) {
+  renderFilms(e) {
     axios.get(`https://swapi.co/api/films/`)
       .then(response => {
         let responseFilms = response.data.results;
@@ -26,12 +27,34 @@ class App extends Component {
       });
   }
 
+  renderPeople(e) {
+    axios.get(`https://swapi.co/api/people/`)
+      .then(response => {
+        let responsePeople = response.data.results;
+        let resultPeople = responsePeople.filter(person => person.name.toLowerCase().includes(e));
+        let peopleFilms = resultPeople[0].films;
+        peopleFilms.map(film => {return(
+          axios.get(film)
+            .then(response=>{
+              this.setState({personFilm: response.data.title});
+              console.log(this.state.personFilm);
+            })
+            .catch(function(error){
+              console.log(error);
+            })
+        )})
+      })
+      .catch(function(error){
+        console.log(error)
+      });
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Star Wars</h1>
         
-        <input onKeyUp={(e)=>this.renderData(e.target.value)} type="text" placeholder="Type here" name="search" id="search"/>
+        <input onKeyUp={this.state.select === 'films' ? (e)=>this.renderFilms(e.target.value) : (e)=>this.renderPeople(e.target.value)} type="text" placeholder="Type here" name="search" id="search"/>
 
         <select value={this.state.select} onChange={(e)=>this.setState({select: e.target.value})} name="selector" id="select">
           <option value="n/a" defaultValue>Select an option</option>
