@@ -10,12 +10,12 @@ class App extends Component {
     this.state = {
       select: '',
       films: [],
-      people: [],
       personFilm: []
     }
   }
 
   renderFilms(e) {
+    this.setState({personFilm: []});
     axios.get(`https://swapi.co/api/films/`)
       .then(response => {
         let responseFilms = response.data.results;
@@ -29,6 +29,7 @@ class App extends Component {
   }
 
   renderPeople(e) {
+    this.setState({films: []});
     axios.get(`https://swapi.co/api/people/`)
       .then(response => {
         let responsePeople = response.data.results;
@@ -66,7 +67,7 @@ class App extends Component {
         <input onKeyUp={this.state.select === 'films' ? (e)=>this.renderFilms(e.target.value) : (e)=>this.renderPeople(e.target.value)} type="text" placeholder="Type here" name="search" id="search"/>
 
         <select value={this.state.select} onChange={(e)=>this.setState({select: e.target.value})} name="selector" id="select">
-          <option value="n/a" defaultValue>Select an option</option>
+          <option value="n/a" defaultValue disabled>Select an option</option>
           <option value="people">People</option>
           <option value="films">Films</option>
         </select>
