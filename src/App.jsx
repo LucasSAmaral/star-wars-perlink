@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.scss';
 
+
 class App extends Component {
 
   constructor(props){
@@ -33,16 +34,24 @@ class App extends Component {
         let responsePeople = response.data.results;
         let resultPeople = responsePeople.filter(person => person.name.toLowerCase().includes(e));
         let peopleFilms = resultPeople[0].films;
-        peopleFilms.map(film => {return(
+        let peopleFilm = peopleFilms.map(film => {return(
           axios.get(film)
             .then(response=>{
-              this.setState({personFilm: response.data.title});
-              console.log(this.state.personFilm);
+              let peopleMovies = response.data.title;
+              return peopleMovies;
             })
             .catch(function(error){
               console.log(error);
             })
-        )})
+        )});
+
+        Promise.all(peopleFilm)
+          .then(responses=>{
+            this.setState({personFilm: responses});
+              return console.log(this.state.personFilm);
+          })
+        
+
       })
       .catch(function(error){
         console.log(error)
@@ -64,6 +73,10 @@ class App extends Component {
 
         {this.state.films.map(film=>{
           return <p key={film}>{film}</p>
+        })}
+
+        {this.state.personFilm.map(movie=>{
+          return <p key={movie}>{movie}</p>
         })}
 
       </div>
