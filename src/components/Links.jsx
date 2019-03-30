@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 class Links extends Component {
     render() {
-        return(
+        return (
             <Link className="result__links" to={this.props.path}>{this.props.text}</Link>
         )
     }
