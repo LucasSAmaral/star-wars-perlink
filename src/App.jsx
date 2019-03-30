@@ -129,7 +129,7 @@ class App extends Component {
         <div className={`container__result ${this.state.select !== 'people' ? 'display-none' : this.state.personFilm.length === 0 ? 'display-none' : ''}`}>
 
           {this.state.personFilm.map(film => {
-            return <Links key={film[1]} path={`path/${film[1]}`} text={film[0]} />
+            return <Links key={film[1]} path={`/film/${film[1]}`} text={film[0]} />
           })}
 
         </div>
