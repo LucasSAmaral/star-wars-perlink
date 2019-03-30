@@ -12,8 +12,7 @@ class App extends Component {
     this.state = {
       select: '',
       films: [],
-      personFilm: [],
-      filmObject: []
+      personFilm: []
     }
   }
 
@@ -29,31 +28,26 @@ class App extends Component {
       .then(response => {
         let responseFilms = response.data.results;
         let resultFilms = responseFilms.map(film => { return film.title });
-        let movieObject = [];
+        let movieArray = [];
         resultFilms.forEach((element,index) => {
           if(index === 0) {
-            movieObject[index] = {"title": element,"index":1};
+            movieArray[index] = [element,1];
           } else if (index === 1) {
-            movieObject[index] = {"title": element,"index":5};
+            movieArray[index] = [element,5];
           } else if (index === 2) {
-            movieObject[index] = {"title": element,"index":4};
+            movieArray[index] = [element,4];
           } else if (index === 3) {
-            movieObject[index] = {"title": element,"index":6};
+            movieArray[index] = [element,6];
           } else if (index === 4) {
-            movieObject[index] = {"title": element,"index":3};
+            movieArray[index] = [element,3];
           } else if (index === 5) {
-            movieObject[index] = {"title": element,"index":2};
+            movieArray[index] = [element,2];
           } else if (index === 6) {
-            movieObject[index] = {"title": element,"index":7};
+            movieArray[index] = [element,7];
           }  
         });
-        
-        this.setState({filmObject: movieObject});
 
-        console.log(this.state.filmObject);
-        
-        this.setState({ films: resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e)) });
-        // console.log(movieArray.filter(resultFilm => resultFilm.toLowerCase().includes(e)));
+        this.setState({ films: movieArray.filter(movie => movie[0].toLowerCase().includes(e)) });
       })
       .catch(function (error) {
         console.log(error);
@@ -113,7 +107,7 @@ class App extends Component {
         <div className={`container__result ${this.state.select !== 'films' ? 'display-none' : this.state.films.length === 0 ? 'display-none' : ''}`}>
 
           {this.state.films.map(film => {
-            return <Links key={film} path="/film" text={film} />
+            return <Links key={film[1]} path={`/film/${film[1]}`} text={film[0]} />
           })}
 
         </div>
