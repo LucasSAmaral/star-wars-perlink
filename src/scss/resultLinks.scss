@@ -1,0 +1,19 @@
+.result {
+    &__links {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        text-decoration: none;
+        color: #e1b100;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &::after{
+            content: ">";
+            float: right;
+        }
+    }
+}

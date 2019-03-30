@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import logo from './assets/Star-Wars.png';
+import Links from './components/Links';
 import './scss/Style.scss';
 
 
@@ -78,12 +79,13 @@ class App extends Component {
         </div>
 
         <div className="container__result">
+
           {this.state.films.map(film=>{
-            return <p key={film}>{film}</p>
+            return <Links key={film} path="/film" text={film}/>
           })}
 
           {this.state.personFilm.map(movie=>{
-            return <p key={movie}>{movie}</p>
+            return <Links key={movie} path="/film" text={movie}/>
           })}
         </div>
 
