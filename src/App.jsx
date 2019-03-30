@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './assets/Star-Wars.png';
+import Logo from './components/Logo';
 import Links from './components/Links';
 import './scss/Style.scss';
 
@@ -76,11 +76,27 @@ class App extends Component {
 
         Promise.all(peopleFilm)
           .then(responses => {
-            this.setState({ personFilm: responses });
-            return console.log(this.state.personFilm);
+            let peopleArray = [];
+            responses.forEach((element,index)=>{
+              if (element === "A New Hope") {
+                peopleArray[index] = [element, 1];
+              } else if (element === "The Empire Strikes Back") {
+                peopleArray[index] = [element, 2];
+              } else if (element === "Return of the Jedi") {
+                peopleArray[index] = [element, 3];
+              } else if (element === "The Phantom Menace") {
+                peopleArray[index] = [element, 4];
+              } else if (element === "Attack of the Clones") {
+                peopleArray[index] = [element, 5];
+              } else if (element === "Revenge of the Sith") {
+                peopleArray[index] = [element, 6];
+              } else if (element === "The Force Awakens") {
+                peopleArray[index] = [element, 7];
+              }
+            });
+            this.setState({ personFilm: peopleArray });
+            return this.state.personFilm;
           })
-
-
       })
       .catch(function (error) {
         console.log(error)
@@ -92,7 +108,7 @@ class App extends Component {
       <div className="container__App">
 
         <div className="container__logo">
-          <img src={logo} alt="Star Wars Logo" />
+          <Logo />
         </div>
 
         <div className="container__search">
@@ -114,8 +130,8 @@ class App extends Component {
 
         <div className={`container__result ${this.state.select !== 'people' ? 'display-none' : this.state.personFilm.length === 0 ? 'display-none' : ''}`}>
 
-          {this.state.personFilm.map(movie => {
-            return <Links key={movie} path="/film" text={movie} />
+          {this.state.personFilm.map(film => {
+            return <Links key={film[1]} path={`path/${film[1]}`} text={film[0]} />
           })}
 
         </div>
