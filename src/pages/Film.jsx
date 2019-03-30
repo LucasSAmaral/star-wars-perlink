@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Logo from '../components/Logo';
+import ButtonRouter from '../components/ButtonRouter';
 import axios from 'axios';
 
 class Film extends Component {
@@ -46,6 +47,12 @@ class Film extends Component {
                         <p><span>Episode number:</span> {this.state.films.episode_id}</p>
                         <p><span>Release date:</span> {this.state.newDate}</p>
                     </div>
+                </div>
+
+                <div className="container__buttons">
+                        <ButtonRouter path="/" text="Home" />
+                        <ButtonRouter path="/aboutme" text="About Me" />
+                        <ButtonRouter path="/abouttheapp" text="About The App" />
                 </div>
             </div>
         )
