@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       select: '',
       films: [],
-      personFilm: []
+      personFilm: [],
+      filmObject: []
     }
   }
 
@@ -28,8 +29,31 @@ class App extends Component {
       .then(response => {
         let responseFilms = response.data.results;
         let resultFilms = responseFilms.map(film => { return film.title });
+        let movieObject = [];
+        resultFilms.forEach((element,index) => {
+          if(index === 0) {
+            movieObject[index] = {"title": element,"index":1};
+          } else if (index === 1) {
+            movieObject[index] = {"title": element,"index":5};
+          } else if (index === 2) {
+            movieObject[index] = {"title": element,"index":4};
+          } else if (index === 3) {
+            movieObject[index] = {"title": element,"index":6};
+          } else if (index === 4) {
+            movieObject[index] = {"title": element,"index":3};
+          } else if (index === 5) {
+            movieObject[index] = {"title": element,"index":2};
+          } else if (index === 6) {
+            movieObject[index] = {"title": element,"index":7};
+          }  
+        });
+        
+        this.setState({filmObject: movieObject});
+
+        console.log(this.state.filmObject);
+        
         this.setState({ films: resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e)) });
-        console.log(resultFilms.filter(resultFilm => resultFilm.toLowerCase().includes(e)));
+        // console.log(movieArray.filter(resultFilm => resultFilm.toLowerCase().includes(e)));
       })
       .catch(function (error) {
         console.log(error);
