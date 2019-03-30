@@ -114,7 +114,7 @@ class App extends Component {
         </div>
 
         <div className="container__search">
-          <InputText searchText={this.state.select === 'films' ? (e) => this.renderFilms(e.target.value) : (e) => this.renderPeople(e.target.value)} placeholderText={this.state.select === 'films' ? 'Type film' : 'Type person'}/>
+          <InputText searchText={this.state.select === 'films' ? (e) => this.renderFilms(e.target.value) : (e) => this.renderPeople(e.target.value)} placeholderText={this.state.select === 'films' ? 'Type film' : this.state.select === 'people' ? 'Type person' : 'Select an option first'}/>
           <SelectSearch stateValue={this.state.select} changeState={(e) => {this.setState({ select: e.target.value });this.clearInput();}}/>
         </div>
 
