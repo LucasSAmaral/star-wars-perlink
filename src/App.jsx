@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Logo from './components/Logo';
 import Links from './components/Links';
+import InputText from './components/InputText';
+import SelectSearch from './components/SelectSearch';
 import './scss/Style.scss';
 
 
@@ -112,12 +114,8 @@ class App extends Component {
         </div>
 
         <div className="container__search">
-          <input onKeyUp={this.state.select === 'films' ? (e) => this.renderFilms(e.target.value) : (e) => this.renderPeople(e.target.value)} type="text" placeholder={this.state.select === 'films' ? 'Type film' : 'Type person'} name="search" id="search" />
-          <select value={this.state.select} onChange={(e) => {this.setState({ select: e.target.value });this.clearInput();}} name="selector" id="select">
-            <option value="" defaultValue>Select an option</option>
-            <option value="people">People</option>
-            <option value="films">Films</option>
-          </select>
+          <InputText searchText={this.state.select === 'films' ? (e) => this.renderFilms(e.target.value) : (e) => this.renderPeople(e.target.value)} placeholderText={this.state.select === 'films' ? 'Type film' : 'Type person'}/>
+          <SelectSearch stateValue={this.state.select} changeState={(e) => {this.setState({ select: e.target.value });this.clearInput();}}/>
         </div>
 
         <div className={`container__result ${this.state.select !== 'films' ? 'display-none' : this.state.films.length === 0 ? 'display-none' : ''}`}>
