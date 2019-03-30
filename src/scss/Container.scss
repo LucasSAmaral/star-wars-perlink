@@ -110,4 +110,19 @@
             }
         }
     }
+
+    &__buttons {
+      margin: 0 auto;
+      margin-top: 40px;
+      display: flex;
+      flex-flow: column;
+      max-width: 500px;
+      width: 100%;
+
+      @media (min-width: 425px) {
+        flex-flow: row;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+    }
   }

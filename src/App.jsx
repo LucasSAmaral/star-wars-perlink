@@ -4,6 +4,7 @@ import Logo from './components/Logo';
 import Links from './components/Links';
 import InputText from './components/InputText';
 import SelectSearch from './components/SelectSearch';
+import ButtonRouter from './components/ButtonRouter';
 import './scss/Style.scss';
 
 
@@ -132,6 +133,11 @@ class App extends Component {
             return <Links key={film[1]} path={`/film/${film[1]}`} text={film[0]} />
           })}
 
+        </div>
+
+        <div className="container__buttons">
+          <ButtonRouter path="/aboutme" text="About Me" />
+          <ButtonRouter path="/abouttheapp" text="About The App" />
         </div>
 
       </div>
