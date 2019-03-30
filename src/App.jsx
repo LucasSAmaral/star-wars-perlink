@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './App.scss';
+import logo from './assets/Star-Wars.png';
+import './scss/Style.scss';
 
 
 class App extends Component {
@@ -61,24 +62,30 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Star Wars</h1>
-        
-        <input onKeyUp={this.state.select === 'films' ? (e)=>this.renderFilms(e.target.value) : (e)=>this.renderPeople(e.target.value)} type="text" placeholder="Type here" name="search" id="search"/>
+      <div className="container__App">
 
-        <select value={this.state.select} onChange={(e)=>this.setState({select: e.target.value})} name="selector" id="select">
-          <option value="n/a" defaultValue disabled>Select an option</option>
-          <option value="people">People</option>
-          <option value="films">Films</option>
-        </select>
+        <div className="container__logo">
+          <img src={logo} alt="Star Wars Logo"/>
+        </div>
 
-        {this.state.films.map(film=>{
-          return <p key={film}>{film}</p>
-        })}
+        <div className="container__search">
+          <input onKeyUp={this.state.select === 'films' ? (e)=>this.renderFilms(e.target.value) : (e)=>this.renderPeople(e.target.value)} type="text" placeholder="Type here" name="search" id="search"/>
+          <select value={this.state.select} onChange={(e)=>this.setState({select: e.target.value})} name="selector" id="select">
+            <option value="n/a" defaultValue disabled>Select an option</option>
+            <option value="people">People</option>
+            <option value="films">Films</option>
+          </select>
+        </div>
 
-        {this.state.personFilm.map(movie=>{
-          return <p key={movie}>{movie}</p>
-        })}
+        <div className="container__result">
+          {this.state.films.map(film=>{
+            return <p key={film}>{film}</p>
+          })}
+
+          {this.state.personFilm.map(movie=>{
+            return <p key={movie}>{movie}</p>
+          })}
+        </div>
 
       </div>
     );
