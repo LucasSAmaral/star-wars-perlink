@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './assets/Star-Wars.png';
+import Logo from './components/Logo';
 import Links from './components/Links';
 import './scss/Style.scss';
 
@@ -95,10 +95,8 @@ class App extends Component {
               }
             });
             this.setState({ personFilm: peopleArray });
-            return console.log(this.state.personFilm);
+            return this.state.personFilm;
           })
-
-
       })
       .catch(function (error) {
         console.log(error)
@@ -110,7 +108,7 @@ class App extends Component {
       <div className="container__App">
 
         <div className="container__logo">
-          <img src={logo} alt="Star Wars Logo" />
+          <Logo />
         </div>
 
         <div className="container__search">
