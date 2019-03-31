@@ -23,10 +23,17 @@ class App extends Component {
     let inputText = document.getElementById('search');
     inputText.value = '';
     inputText.focus();
+    this.clearSearch();
+  }
+
+  clearSearch() {
+    this.setState({ personFilm: [] });
+    this.setState({ films: [] });
   }
 
   renderFilms(e) {
-    this.setState({ personFilm: [] });
+    // this.setState({ personFilm: [] });
+    let lowerCaseFilm = e.toLowerCase();
     axios.get(`https://swapi.co/api/films/`)
       .then(response => {
         let responseFilms = response.data.results;
@@ -50,7 +57,7 @@ class App extends Component {
           }  
         });
 
-        this.setState({ films: movieArray.filter(movie => movie[0].toLowerCase().includes(e)) });
+        this.setState({ films: movieArray.filter(movie => movie[0].toLowerCase().includes(lowerCaseFilm)) });
       })
       .catch(function (error) {
         console.log(error);
@@ -58,11 +65,12 @@ class App extends Component {
   }
 
   renderPeople(e) {
-    this.setState({ films: [] });
+    // this.setState({ films: [] });
+    let lowerCasePeople = e.toLowerCase();
     axios.get(`https://swapi.co/api/people/`)
       .then(response => {
         let responsePeople = response.data.results;
-        let resultPeople = responsePeople.filter(person => person.name.toLowerCase().includes(e));
+        let resultPeople = responsePeople.filter(person => person.name.toLowerCase().includes(lowerCasePeople));
         let peopleFilms = resultPeople[0].films;
         let peopleFilm = peopleFilms.map(film => {
           return (
