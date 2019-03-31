@@ -19,7 +19,7 @@ class AboutTheApp extends Component {
                         <ul>
                             <li>React</li>
                             <li>Axios</li>
-                            <li>SCSS</li>
+                            <li>SASS</li>
                             <li>Netlify</li>
                         </ul>
                     </div>
