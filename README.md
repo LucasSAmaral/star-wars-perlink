@@ -36,3 +36,23 @@ npm start
 Acesse o endereço http://localhost:3000 para rodar a aplicação.
 
 Caso prefira acessar a aplicação online, acesse o endereço https://star-wars-perlink.netlify.com/
+
+## Testes unitários
+
+Para realizar os testes digite:
+
+``` bash
+npm test
+```
+
+### Como foi feito?
+
+Para desenvolver a aplicação, utilizei as seguintes tecnologias:
+
+* React para criar os componentes e fazer a navegação por rotas.
+
+* Axios para fazer a requisição à API.
+
+* SASS.
+
+* Netlify para hospedar a aplicação.
