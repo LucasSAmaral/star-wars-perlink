@@ -1,4 +1,4 @@
-<h1 align="center">Star Wars Planets</h1>
+<h1 align="center">Star Wars Perlink</h1>
 
 <h2 align="center"><img src="https://www.mysoti.com/img/user/angold01/product/web/1447319/1447319_show_default.png" width="500" alt="Millenium Falcon"></img></h2>
 
