@@ -27,7 +27,6 @@ class AboutTheApp extends Component {
                     <div className="container__buttons">
                         <ButtonRouter path="/" text="Home" />
                         <ButtonRouter path="/aboutme/" text="About Me" />
-                        <ButtonRouter path="/abouttheapp" text="About The App" />
                     </div>
                 </div>
             </div>
