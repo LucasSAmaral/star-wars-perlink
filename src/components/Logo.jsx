@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import img from '../assets/Star-Wars.png';
+import React, { Component } from "react";
+import img from "../assets/Star-Wars.png";
 
 class Logo extends Component {
-    render(){
-        return(
-            <img src={img} alt="Star Wars Logo" />
-        )
-    }
+  render() {
+    return <img src={img} alt="Star Wars Logo" />;
+  }
 }
 
-export default Logo
+export default Logo;
