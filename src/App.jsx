@@ -74,7 +74,6 @@ class App extends Component {
           movie[0].toLowerCase().includes(lowerCaseFilm)
         );
         this.props.onFilmFetched(filmFetch);
-        return this.props.films;
       })
       .catch(function(error) {
         console.log(error);
@@ -124,7 +123,6 @@ class App extends Component {
           });
 
           this.props.onPersonFetched(peopleArray);
-          return this.props.personFilm;
         });
       })
       .catch(function(error) {
