@@ -12,6 +12,7 @@ import {
   FILMS_SELECTED,
   PERSON_SELECTED,
   SEARCH_CLEARED,
+  NONE_SELECTED,
   filmsFetchedActionCreator,
   personFetchedActionCreator
 } from "./app.reducer";
@@ -19,6 +20,7 @@ import {
 class App extends Component {
   componentDidMount() {
     this.clearSearch();
+    this.noneSelected();
   }
 
   clearInput() {
@@ -31,6 +33,12 @@ class App extends Component {
   clearSearch() {
     this.props.dispatch({
       type: SEARCH_CLEARED
+    });
+  }
+
+  noneSelected() {
+    this.props.dispatch({
+      type: NONE_SELECTED
     });
   }
 
@@ -156,6 +164,10 @@ class App extends Component {
               } else if (e.target.value === PERSON_SELECTED) {
                 this.props.dispatch({
                   type: PERSON_SELECTED
+                });
+              } else if (e.target.value === NONE_SELECTED) {
+                this.props.dispatch({
+                  type: NONE_SELECTED
                 });
               }
               this.clearInput();

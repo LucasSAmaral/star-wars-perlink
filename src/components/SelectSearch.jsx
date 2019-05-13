@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PERSON_SELECTED, FILMS_SELECTED } from "../app.reducer";
+import { PERSON_SELECTED, FILMS_SELECTED, NONE_SELECTED } from "../app.reducer";
 
 class SelectSearch extends Component {
   render() {
@@ -10,7 +10,7 @@ class SelectSearch extends Component {
         name="selector"
         id="select"
       >
-        <option value="" defaultValue>
+        <option value={NONE_SELECTED} defaultValue>
           Select an option
         </option>
         <option value={PERSON_SELECTED}>People</option>

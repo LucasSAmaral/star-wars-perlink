@@ -3,15 +3,21 @@ export const PERSON_SELECTED = "PERSON_SELECTED";
 export const FILMS_FETCHED = "FILMS_FETCHED";
 export const PERSON_FETCHED = "PERSON_FETCHED";
 export const SEARCH_CLEARED = "SEARCH_CLEARED";
+export const NONE_SELECTED = "NONE_SELECTED";
 
 export const initialState = {
-  select: "",
+  select: NONE_SELECTED,
   films: [],
   personFilm: []
 };
 
 export default function appReducer(state = initialState, action = {}) {
   switch (action.type) {
+    case NONE_SELECTED:
+      return {
+        ...state,
+        select: NONE_SELECTED
+      };
     case SEARCH_CLEARED:
       return {
         ...state,
