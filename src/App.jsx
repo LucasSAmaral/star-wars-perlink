@@ -5,18 +5,18 @@ import Links from "./components/Links";
 import InputText from "./components/InputText";
 import SelectSearch from "./components/SelectSearch";
 import ButtonRouter from "./components/ButtonRouter";
+import { connect } from "react-redux";
 import "./scss/Style.scss";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      select: "",
-      films: [],
-      personFilm: []
-    };
-  }
+import {
+  FILMS_SELECTED,
+  PERSON_SELECTED,
+  SEARCH_CLEARED,
+  filmsFetchedActionCreator,
+  personFetchedActionCreator
+} from "./app.reducer";
 
+class App extends Component {
   clearInput() {
     const inputText = document.getElementById("search");
     inputText.value = "";
@@ -25,8 +25,9 @@ class App extends Component {
   }
 
   clearSearch() {
-    this.setState({ personFilm: [] });
-    this.setState({ films: [] });
+    this.props.dispatch({
+      type: SEARCH_CLEARED
+    });
   }
 
   renderFilms(e) {
@@ -57,11 +58,11 @@ class App extends Component {
           }
         });
 
-        this.setState({
-          films: movieArray.filter(movie =>
-            movie[0].toLowerCase().includes(lowerCaseFilm)
-          )
-        });
+        let filmFetch = movieArray.filter(movie =>
+          movie[0].toLowerCase().includes(lowerCaseFilm)
+        );
+        this.props.onFilmFetched(filmFetch);
+        return this.props.films;
       })
       .catch(function(error) {
         console.log(error);
@@ -109,8 +110,9 @@ class App extends Component {
               peopleArray[index] = [element, 7];
             }
           });
-          this.setState({ personFilm: peopleArray });
-          return this.state.personFilm;
+
+          this.props.onPersonFetched(peopleArray);
+          return this.props.personFilm;
         });
       })
       .catch(function(error) {
@@ -128,22 +130,30 @@ class App extends Component {
         <div className="container__search">
           <InputText
             searchText={
-              this.state.select === "films"
+              this.props.select === FILMS_SELECTED
                 ? e => this.renderFilms(e.target.value)
                 : e => this.renderPeople(e.target.value)
             }
             placeholderText={
-              this.state.select === "films"
+              this.props.select === FILMS_SELECTED
                 ? "Type film"
-                : this.state.select === "people"
+                : this.props.select === PERSON_SELECTED
                 ? "Type person"
                 : "Select an option first"
             }
           />
           <SelectSearch
-            stateValue={this.state.select}
+            stateValue={this.props.select}
             changeState={e => {
-              this.setState({ select: e.target.value });
+              if (e.target.value === FILMS_SELECTED) {
+                this.props.dispatch({
+                  type: FILMS_SELECTED
+                });
+              } else if (e.target.value === PERSON_SELECTED) {
+                this.props.dispatch({
+                  type: PERSON_SELECTED
+                });
+              }
               this.clearInput();
             }}
           />
@@ -151,14 +161,14 @@ class App extends Component {
 
         <div
           className={`container__result ${
-            this.state.select !== "films"
+            this.props.select !== FILMS_SELECTED
               ? "display-none"
-              : this.state.films.length === 0
+              : this.props.films.length === 0
               ? "display-none"
               : ""
           }`}
         >
-          {this.state.films.map(film => {
+          {this.props.films.map(film => {
             return (
               <Links key={film[1]} path={`/film/${film[1]}`} text={film[0]} />
             );
@@ -167,14 +177,14 @@ class App extends Component {
 
         <div
           className={`container__result ${
-            this.state.select !== "people"
+            this.props.select !== PERSON_SELECTED
               ? "display-none"
-              : this.state.personFilm.length === 0
+              : this.props.personFilm.length === 0
               ? "display-none"
               : ""
           }`}
         >
-          {this.state.personFilm.map(film => {
+          {this.props.personFilm.map(film => {
             return (
               <Links key={film[1]} path={`/film/${film[1]}`} text={film[0]} />
             );
@@ -190,4 +200,23 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  select: state.select,
+  films: state.films,
+  personFilm: state.personFilm
+});
+
+const mapDispatchToProps = dispatch => ({
+  dispatch: dispatch,
+  onFilmFetched: films => {
+    dispatch(filmsFetchedActionCreator(films));
+  },
+  onPersonFetched: person => {
+    dispatch(personFetchedActionCreator(person));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
