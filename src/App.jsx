@@ -17,6 +17,10 @@ import {
 } from "./app.reducer";
 
 class App extends Component {
+  componentDidMount() {
+    this.clearSearch();
+  }
+
   clearInput() {
     const inputText = document.getElementById("search");
     inputText.value = "";
