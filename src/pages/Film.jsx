@@ -3,7 +3,7 @@ import Logo from "../components/Logo";
 import ButtonRouter from "../components/ButtonRouter";
 import axios from "axios";
 import { connect } from "react-redux";
-import { mapStateToProps, mapDispatchToProps } from "../App";
+import { mapStateToProps, mapDispatchToProps } from "../app.reducer";
 
 class Film extends Component {
   componentDidMount() {

@@ -13,11 +13,8 @@ import {
   PERSON_SELECTED,
   SEARCH_CLEARED,
   NONE_SELECTED,
-  filmsFetchedActionCreator,
-  personFetchedActionCreator,
-  filmSelectedActionCreator,
-  dateChangeActionCreator
-  // filmSelectIndexActionCreator
+  mapStateToProps,
+  mapDispatchToProps
 } from "./app.reducer";
 
 class App extends Component {
@@ -216,34 +213,6 @@ class App extends Component {
     );
   }
 }
-
-export const mapStateToProps = state => ({
-  select: state.select,
-  films: state.films,
-  film: state.film,
-  newDate: state.newDate,
-  personFilm: state.personFilm
-  // filmIndexSelected: state.filmIndexSelected
-});
-
-export const mapDispatchToProps = dispatch => ({
-  dispatch: dispatch,
-  onFilmFetched: films => {
-    dispatch(filmsFetchedActionCreator(films));
-  },
-  onPersonFetched: person => {
-    dispatch(personFetchedActionCreator(person));
-  },
-  onFilmSelected: film => {
-    dispatch(filmSelectedActionCreator(film));
-  },
-  onDateChanged: date => {
-    dispatch(dateChangeActionCreator(date));
-  }
-  // onFilmIndexSelected: index => {
-  //   dispatch(filmSelectIndexActionCreator(index));
-  // }
-});
 
 export default connect(
   mapStateToProps,

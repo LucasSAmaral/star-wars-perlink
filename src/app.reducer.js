@@ -96,3 +96,31 @@ export const dateChangeActionCreator = date => ({
 //   type: INDEX_SELECTED,
 //   payload: index
 // });
+
+export const mapStateToProps = state => ({
+  select: state.select,
+  films: state.films,
+  film: state.film,
+  newDate: state.newDate,
+  personFilm: state.personFilm
+  // filmIndexSelected: state.filmIndexSelected
+});
+
+export const mapDispatchToProps = dispatch => ({
+  dispatch: dispatch,
+  onFilmFetched: films => {
+    dispatch(filmsFetchedActionCreator(films));
+  },
+  onPersonFetched: person => {
+    dispatch(personFetchedActionCreator(person));
+  },
+  onFilmSelected: film => {
+    dispatch(filmSelectedActionCreator(film));
+  },
+  onDateChanged: date => {
+    dispatch(dateChangeActionCreator(date));
+  }
+  // onFilmIndexSelected: index => {
+  //   dispatch(filmSelectIndexActionCreator(index));
+  // }
+});
