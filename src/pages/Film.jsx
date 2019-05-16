@@ -4,6 +4,7 @@ import ButtonRouter from "../components/ButtonRouter";
 import axios from "axios";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../app.reducer";
+import { prop } from "ramda";
 
 class Film extends Component {
   componentDidMount() {
@@ -15,9 +16,9 @@ class Film extends Component {
     axios
       .get(`https://swapi.co/api/films/${filmNumber}/?format=json`)
       .then(response => {
-        const responseFilms = response.data;
+        const responseFilms = prop("data", response);
         this.props.onFilmSelected(responseFilms);
-        const date = responseFilms.release_date;
+        const date = prop("release_date", responseFilms);
         const newDate = date
           .split("-")
           .reverse()

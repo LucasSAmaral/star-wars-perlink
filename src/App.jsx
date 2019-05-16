@@ -6,6 +6,7 @@ import InputText from "./components/InputText";
 import SelectSearch from "./components/SelectSearch";
 import ButtonRouter from "./components/ButtonRouter";
 import { connect } from "react-redux";
+import { pathOr } from "ramda";
 import "./scss/Style.scss";
 
 import {
@@ -47,7 +48,7 @@ class App extends Component {
     axios
       .get(`https://swapi.co/api/films/`)
       .then(response => {
-        const responseFilms = response.data.results;
+        const responseFilms = pathOr("", ["data", "results"], response);
         const resultFilms = responseFilms.map(film => {
           return film.title;
         });
@@ -85,7 +86,7 @@ class App extends Component {
     axios
       .get(`https://swapi.co/api/people/`)
       .then(response => {
-        const responsePeople = response.data.results;
+        const responsePeople = pathOr("", ["data", "results"], response);
         let resultPeople = responsePeople.filter(person =>
           person.name.toLowerCase().includes(lowerCasePeople)
         );
@@ -94,7 +95,7 @@ class App extends Component {
           return axios
             .get(film)
             .then(response => {
-              const peopleMovies = response.data.title;
+              const peopleMovies = pathOr("", ["data", "title"], response);
               return peopleMovies;
             })
             .catch(function(error) {
