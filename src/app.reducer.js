@@ -6,15 +6,15 @@ export const PERSON_FETCHED = "PERSON_FETCHED";
 export const SEARCH_CLEARED = "SEARCH_CLEARED";
 export const NONE_SELECTED = "NONE_SELECTED";
 export const DATE_CHANGED = "DATE_CHANGED";
-// export const INDEX_SELECTED = "INDEX_SELECTED";
+export const INDEX_SELECTED = "INDEX_SELECTED";
 
 export const initialState = {
   select: NONE_SELECTED,
   films: [],
   film: [],
   newDate: "",
-  personFilm: []
-  // filmIndexSelected: 0
+  personFilm: [],
+  filmIndexSelected: 0
 };
 
 export default function appReducer(state = initialState, action = {}) {
@@ -50,11 +50,11 @@ export default function appReducer(state = initialState, action = {}) {
         ...state,
         newDate: action.payload
       };
-    // case INDEX_SELECTED:
-    //   return {
-    //     ...state,
-    //     filmIndexSelected: action.payload
-    //   };
+    case INDEX_SELECTED:
+      return {
+        ...state,
+        filmIndexSelected: action.payload
+      };
     case FILMS_FETCHED:
       return {
         ...state,
@@ -92,18 +92,13 @@ export const dateChangeActionCreator = date => ({
   payload: date
 });
 
-// export const filmSelectIndexActionCreator = index => ({
-//   type: INDEX_SELECTED,
-//   payload: index
-// });
-
 export const mapStateToProps = state => ({
   select: state.select,
   films: state.films,
   film: state.film,
   newDate: state.newDate,
-  personFilm: state.personFilm
-  // filmIndexSelected: state.filmIndexSelected
+  personFilm: state.personFilm,
+  filmIndexSelected: state.filmIndexSelected
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -120,7 +115,4 @@ export const mapDispatchToProps = dispatch => ({
   onDateChanged: date => {
     dispatch(dateChangeActionCreator(date));
   }
-  // onFilmIndexSelected: index => {
-  //   dispatch(filmSelectIndexActionCreator(index));
-  // }
 });

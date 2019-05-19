@@ -14,6 +14,7 @@ import {
   PERSON_SELECTED,
   SEARCH_CLEARED,
   NONE_SELECTED,
+  INDEX_SELECTED,
   mapStateToProps,
   mapDispatchToProps
 } from "./app.reducer";
@@ -185,7 +186,17 @@ class App extends Component {
         >
           {this.props.films.map(film => {
             return (
-              <Links key={film[1]} path={`/film/${film[1]}`} text={film[0]} />
+              <Links
+                selectIndex={() => {
+                  this.props.dispatch({
+                    type: INDEX_SELECTED,
+                    payload: film[1]
+                  });
+                }}
+                key={film[1]}
+                path="/film"
+                text={film[0]}
+              />
             );
           })}
         </div>
@@ -201,7 +212,17 @@ class App extends Component {
         >
           {this.props.personFilm.map(film => {
             return (
-              <Links key={film[1]} path={`/film/${film[1]}`} text={film[0]} />
+              <Links
+                selectIndex={() => {
+                  this.props.dispatch({
+                    type: INDEX_SELECTED,
+                    payload: film[1]
+                  });
+                }}
+                key={film[1]}
+                path="/film"
+                text={film[0]}
+              />
             );
           })}
         </div>

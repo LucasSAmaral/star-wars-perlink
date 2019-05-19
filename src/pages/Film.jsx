@@ -12,7 +12,7 @@ class Film extends Component {
   }
 
   renderFilms() {
-    const filmNumber = window.location.pathname.split("/")[2];
+    const filmNumber = this.props.filmIndexSelected;
     axios
       .get(`https://swapi.co/api/films/${filmNumber}/?format=json`)
       .then(response => {
