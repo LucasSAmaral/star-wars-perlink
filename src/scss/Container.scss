@@ -18,6 +18,16 @@
     }
   }
 
+  &__last-film {
+    span {
+      color: #fff;
+      font-weight: 700;
+    }
+    font-size: 12px;
+    color: #e1b100;
+    text-align: center;
+  }
+
   &__search {
     margin-top: 10px;
     display: flex;

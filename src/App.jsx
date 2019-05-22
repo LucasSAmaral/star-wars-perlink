@@ -139,6 +139,14 @@ class App extends Component {
           <Logo />
         </div>
 
+        {Object.keys(this.props.film).length > 0 && (
+          <div className="container__last-film">
+            <h1>
+              <span>Last film selected:</span> {this.props.film.title}
+            </h1>
+          </div>
+        )}
+
         <div className="container__search">
           <InputText
             searchText={
