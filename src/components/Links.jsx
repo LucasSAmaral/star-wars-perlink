@@ -1,18 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-class Links extends Component {
-  render() {
-    return (
-      <Link
-        onMouseEnter={this.props.selectIndex}
-        className="result__links"
-        to={this.props.path}
-      >
-        {this.props.text}
-      </Link>
-    );
-  }
-}
+const Links = props => {
+  return (
+    <Link
+      onMouseEnter={props.selectIndex}
+      className="result__links"
+      to={props.path}
+    >
+      {props.text}
+    </Link>
+  );
+};
 
 export default Links;

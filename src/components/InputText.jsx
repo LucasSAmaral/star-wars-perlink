@@ -1,17 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-class InputText extends Component {
-  render() {
-    return (
-      <input
-        onKeyUp={this.props.searchText}
-        type="text"
-        placeholder={this.props.placeholderText}
-        name="search"
-        id="search"
-      />
-    );
-  }
-}
+const InputText = props => {
+  return (
+    <input
+      onKeyUp={props.searchText}
+      type="text"
+      placeholder={props.placeholderText}
+      name="search"
+      id="search"
+    />
+  );
+};
 
 export default InputText;
