@@ -92,17 +92,19 @@ class App extends Component {
           person.name.toLowerCase().includes(lowerCasePeople)
         );
         const peopleFilms = resultPeople[0].films;
-        const peopleFilm = peopleFilms.map(async film => {
-          try {
-            const response = await axios.get(film);
-            const peopleMovies = pathOr("", ["data", "title"], response);
-            return peopleMovies;
-          } catch (error) {
-            console.log(error);
-          }
+        const peopleFilm = peopleFilms.map(film => {
+          return axios
+            .get(film)
+            .then(response => {
+              const peopleMovies = pathOr("", ["data", "title"], response);
+              return peopleMovies;
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
         });
 
-        peopleFilm.then(responses => {
+        Promise.all(peopleFilm).then(responses => {
           const peopleArray = [];
           responses.forEach((element, index) => {
             if (element === "A New Hope") {
