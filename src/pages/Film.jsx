@@ -14,18 +14,15 @@ class Film extends Component {
   renderFilms() {
     const filmNumber = this.props.filmIndexSelected;
     axios
-      .get(`https://swapi.co/api/films/${filmNumber}/?format=json`)
-      .then(response => {
+      .get(`https://swapi.dev/api/films/${filmNumber}/?format=json`)
+      .then((response) => {
         const responseFilms = prop("data", response);
         this.props.onFilmSelected(responseFilms);
         const date = prop("release_date", responseFilms);
-        const newDate = date
-          .split("-")
-          .reverse()
-          .join("/");
+        const newDate = date.split("-").reverse().join("/");
         this.props.onDateChanged(newDate);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -62,7 +59,4 @@ class Film extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Film);
+export default connect(mapStateToProps, mapDispatchToProps)(Film);

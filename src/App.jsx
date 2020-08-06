@@ -16,7 +16,7 @@ import {
   NONE_SELECTED,
   INDEX_SELECTED,
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 } from "./app.reducer";
 
 class App extends Component {
@@ -34,23 +34,23 @@ class App extends Component {
 
   clearSearch() {
     this.props.dispatch({
-      type: SEARCH_CLEARED
+      type: SEARCH_CLEARED,
     });
   }
 
   noneSelected() {
     this.props.dispatch({
-      type: NONE_SELECTED
+      type: NONE_SELECTED,
     });
   }
 
   renderFilms(e) {
     let lowerCaseFilm = e.toLowerCase();
     axios
-      .get(`https://swapi.co/api/films/`)
-      .then(response => {
+      .get(`https://swapi.dev/api/films/`)
+      .then((response) => {
         const responseFilms = pathOr("", ["data", "results"], response);
-        const resultFilms = responseFilms.map(film => {
+        const resultFilms = responseFilms.map((film) => {
           return film.title;
         });
         const movieArray = [];
@@ -72,12 +72,12 @@ class App extends Component {
           }
         });
 
-        let filmFetch = movieArray.filter(movie =>
+        let filmFetch = movieArray.filter((movie) =>
           movie[0].toLowerCase().includes(lowerCaseFilm)
         );
         this.props.onFilmFetched(filmFetch);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
@@ -85,26 +85,26 @@ class App extends Component {
   renderPeople(e) {
     let lowerCasePeople = e.toLowerCase();
     axios
-      .get(`https://swapi.co/api/people/`)
-      .then(response => {
+      .get(`https://swapi.dev/api/people/`)
+      .then((response) => {
         const responsePeople = pathOr("", ["data", "results"], response);
-        let resultPeople = responsePeople.filter(person =>
+        let resultPeople = responsePeople.filter((person) =>
           person.name.toLowerCase().includes(lowerCasePeople)
         );
         const peopleFilms = resultPeople[0].films;
-        const peopleFilm = peopleFilms.map(film => {
+        const peopleFilm = peopleFilms.map((film) => {
           return axios
             .get(film)
-            .then(response => {
+            .then((response) => {
               const peopleMovies = pathOr("", ["data", "title"], response);
               return peopleMovies;
             })
-            .catch(function(error) {
+            .catch(function (error) {
               console.log(error);
             });
         });
 
-        Promise.all(peopleFilm).then(responses => {
+        Promise.all(peopleFilm).then((responses) => {
           const peopleArray = [];
           responses.forEach((element, index) => {
             if (element === "A New Hope") {
@@ -127,7 +127,7 @@ class App extends Component {
           this.props.onPersonFetched(peopleArray);
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
@@ -151,8 +151,8 @@ class App extends Component {
           <InputText
             searchText={
               this.props.select === FILMS_SELECTED
-                ? e => this.renderFilms(e.target.value)
-                : e => this.renderPeople(e.target.value)
+                ? (e) => this.renderFilms(e.target.value)
+                : (e) => this.renderPeople(e.target.value)
             }
             placeholderText={
               this.props.select === FILMS_SELECTED
@@ -164,18 +164,18 @@ class App extends Component {
           />
           <SelectSearch
             stateValue={this.props.select}
-            changeState={e => {
+            changeState={(e) => {
               if (e.target.value === FILMS_SELECTED) {
                 this.props.dispatch({
-                  type: FILMS_SELECTED
+                  type: FILMS_SELECTED,
                 });
               } else if (e.target.value === PERSON_SELECTED) {
                 this.props.dispatch({
-                  type: PERSON_SELECTED
+                  type: PERSON_SELECTED,
                 });
               } else if (e.target.value === NONE_SELECTED) {
                 this.props.dispatch({
-                  type: NONE_SELECTED
+                  type: NONE_SELECTED,
                 });
               }
               this.clearInput();
@@ -192,13 +192,13 @@ class App extends Component {
               : ""
           }`}
         >
-          {this.props.films.map(film => {
+          {this.props.films.map((film) => {
             return (
               <Links
                 selectIndex={() => {
                   this.props.dispatch({
                     type: INDEX_SELECTED,
-                    payload: film[1]
+                    payload: film[1],
                   });
                 }}
                 key={film[1]}
@@ -218,13 +218,13 @@ class App extends Component {
               : ""
           }`}
         >
-          {this.props.personFilm.map(film => {
+          {this.props.personFilm.map((film) => {
             return (
               <Links
                 selectIndex={() => {
                   this.props.dispatch({
                     type: INDEX_SELECTED,
-                    payload: film[1]
+                    payload: film[1],
                   });
                 }}
                 key={film[1]}
@@ -244,7 +244,4 @@ class App extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
